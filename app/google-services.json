@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "721250493287",
+    "firebase_url": "https://nething-90c9d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "nething-90c9d",
+    "storage_bucket": "nething-90c9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721250493287:android:8bdfdadeb5352a95fe45c2",
+        "android_client_info": {
+          "package_name": "com.nething"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721250493287-2p3iv22mkqc3b0ng0k09mll1riq56r3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nething",
+            "certificate_hash": "754e20dacff1aced9c67677ef31b5fbdf8fac3ef"
+          }
+        },
+        {
+          "client_id": "721250493287-nmntob6h3ckp1nsvui1acqau1b409joo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6TGcn9HQh5nln2LPubW0zoOU_R6rX6r0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721250493287-nmntob6h3ckp1nsvui1acqau1b409joo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
