@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
    BottomNavigationView BottomNavigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
                     break;
 
                 case R.id.profile:
-                    transaction1.replace(R.id.container,new profileFragment());
+                    transaction1.replace(R.id.container,new ProfileFragment());
                     break;
             }
             transaction1.commit();

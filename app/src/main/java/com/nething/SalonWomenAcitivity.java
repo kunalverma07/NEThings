@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,13 +17,19 @@ public class SalonWomenAcitivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<ServiceProviders> userArrayList;
-    myAdapterServiceProvider myAdapterServiceProvider;
+    MyAdapterServiceProvider myAdapterServiceProvider;
     FirebaseFirestore db;
+    String location;
+    ImageView bg; //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salon_women_acitivity);
+
+        location = getIntent().getStringExtra("location");
+
+        bg = findViewById(R.id.no_content); //
 
         recyclerView = findViewById(R.id.salonWomenId);
         recyclerView.setHasFixedSize(true);
@@ -29,15 +37,29 @@ public class SalonWomenAcitivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         userArrayList = new ArrayList<>();
-        myAdapterServiceProvider = new myAdapterServiceProvider(this, userArrayList);
+        myAdapterServiceProvider = new MyAdapterServiceProvider(this, userArrayList);
 
         recyclerView.setAdapter(myAdapterServiceProvider);
         EventChangeListener();
+        checkDocument(); //
+
+    }
+
+    private void checkDocument() { //
+
+        db.collection("SalonWomen").whereEqualTo("district", location).get() //plumber  //change xml
+                .addOnCompleteListener(task -> {
+                    if (task.getResult().isEmpty()){
+                        bg.setVisibility(View.VISIBLE);
+                    } else {
+                        bg.setVisibility(View.GONE);
+                    }
+                });
 
     }
 
     private void EventChangeListener() {
-        db.collection("SalonWomen")
+        db.collection("SalonWomen").whereEqualTo("district", location)
                 .addSnapshotListener((value, error) -> {
 
                     for (DocumentChange dc : value.getDocumentChanges()){

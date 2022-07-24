@@ -1,4 +1,4 @@
-package android.example.house_assist;
+package com.nething;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,17 +11,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Activity_RegisterCustomer extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+
+ public class ActivityRegisterCustomer extends AppCompatActivity {
 
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     private Toolbar toolbar;
     private TextView customer_Login;
     private EditText customer_name,customer_email,customer_mobile,customer_password;
     private Button customer_SignUp;
+    FirebaseAuth mAuth;
+    String name, email, password, phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__register_customer);
+        setContentView(R.layout.activity_register_customer);
         // Intialize
         customer_Login = findViewById(R.id.register_customer_LogIn);
         toolbar = findViewById(R.id.activity_register_toolbar);
@@ -42,7 +47,7 @@ public class Activity_RegisterCustomer extends AppCompatActivity {
         customer_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Activity_RegisterCustomer.this,Activity_LogInCustomer.class));
+                startActivity(new Intent(ActivityRegisterCustomer.this, ActivityLogInCustomer.class));
             }
         });
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -51,13 +56,32 @@ public class Activity_RegisterCustomer extends AppCompatActivity {
             public void onClick(View v) {
                 if(validate())
                 {
-                    Intent intent = new Intent(Activity_RegisterCustomer.this,Activity_OTPCustomer.class);
+                    name = customer_name.getText().toString().trim();
+                    email = customer_email.getText().toString().trim();
+                    password = customer_password.getText().toString().trim();
+                    phone = customer_mobile.getText().toString().trim();
+                    mAuth = FirebaseAuth.getInstance();
+                    mAuth.createUserWithEmailAndPassword(customer_email.getText().toString().trim(), customer_password.getText().toString().trim()).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            Intent intent = new Intent(ActivityRegisterCustomer.this, ActivityCustomerDetails.class);
+                            intent.putExtra("name", name);
+                            intent.putExtra("phone", phone);
+                            intent.putExtra("email", email);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(ActivityRegisterCustomer.this, "Sorry! Failed to register", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(ActivityRegisterCustomer.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    });
+
+                    /*Intent intent = new Intent(Activity_RegisterCustomer.this,Activity_OTPCustomer.class);
                     intent.putExtra("name",customer_name.getText().toString().trim());
                     intent.putExtra("mobile",customer_mobile.getText().toString().trim());
                     intent.putExtra("email",customer_email.getText().toString().trim());
                     intent.putExtra("password",customer_password.getText().toString().trim());
                     intent.putExtra("type","OTP");
-                    startActivity(intent);
+                    startActivity(intent);*/
 
                 }
 

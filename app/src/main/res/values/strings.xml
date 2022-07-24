@@ -52,4 +52,15 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="settings">Settings</string>
+
+    //district spinner//
+    <string-array name="district">
+        <item>Guwahati</item>
+        <item>Jorhat</item>
+        <item>Sivsagar</item>
+        <item>Dibrugarh</item>
+        <item>Tinsukia</item>
+    </string-array>
+
+
 </resources>

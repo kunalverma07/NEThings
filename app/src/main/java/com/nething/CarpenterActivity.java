@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,14 +17,18 @@ public class CarpenterActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<ServiceProviders> userArrayList;
-    myAdapterServiceProvider myAdapterServiceProvider;
+    MyAdapterServiceProvider myAdapterServiceProvider;
     FirebaseFirestore db;
-
+    String location;
+    ImageView bg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carpenter);
+
+        location = getIntent().getStringExtra("location");
+        bg = findViewById(R.id.no_content);
 
         recyclerView = findViewById(R.id.carpenterId);
         recyclerView.setHasFixedSize(true);
@@ -30,16 +36,29 @@ public class CarpenterActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         userArrayList = new ArrayList<>();
-        myAdapterServiceProvider = new myAdapterServiceProvider(this, userArrayList);
+        myAdapterServiceProvider = new MyAdapterServiceProvider(this, userArrayList);
 
         recyclerView.setAdapter(myAdapterServiceProvider);
         EventChangeListener();
+        checkDocument();
+    }
+
+    private void checkDocument() {
+
+        db.collection("Carpenter").whereEqualTo("district", location).get()
+                .addOnCompleteListener(task -> {
+                    if (task.getResult().isEmpty()){
+                        bg.setVisibility(View.VISIBLE);
+                    } else {
+                        bg.setVisibility(View.GONE);
+                    }
+                });
 
     }
-    private void EventChangeListener() {
-        db.collection("Carpenter")
-                .addSnapshotListener((value, error) -> {
 
+    private void EventChangeListener() {
+        db.collection("Carpenter").whereEqualTo("district", location)
+                .addSnapshotListener((value, error) -> {
                     for (DocumentChange dc : value.getDocumentChanges()){
                         if(dc.getType() == DocumentChange.Type.ADDED){
                             userArrayList.add(dc.getDocument().toObject(ServiceProviders.class));

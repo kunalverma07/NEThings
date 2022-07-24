@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_ServiceProviderDetails">
+    tools:context=".ActivityServiceProviderDetails">
 
     <ProgressBar
         android:id="@+id/service_providerdetails_progressbar"
@@ -39,31 +39,55 @@
 
 
             <TextView
+                android:id="@+id/service_provider_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hello"
                 android:layout_marginTop="5dp"
-                android:id="@+id/service_provider_name"
+                android:text="Hello"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/service_provider_dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_person_black_24dp" />
+
+
+                <ImageButton
+                    android:id="@+id/service_provider_dp_edit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_toRightOf="@+id/service_provider_dp"
+                    android:background="@drawable/ic_edit" />
+
+            </RelativeLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:paddingBottom="40dp"
                 android:padding="5dp"
+                android:paddingBottom="40dp"
                 app:cardBackgroundColor="@color/whiteTextColor"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:padding="4dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:padding="4dp">
 
 
                     <LinearLayout
@@ -90,6 +114,30 @@
                             android:textSize="17sp" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
+
+                        <Spinner
+                            android:id="@+id/serviceprovider_district"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/open_sans"
+                            android:text="Select District"
+                            android:textColor="#000"
+                            android:textSize="17sp" />
+                    </LinearLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
@@ -102,7 +150,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/open_sans"
-                            android:hint="Address Line 1."
+                            android:hint="Address "
                             android:inputType="text"
                             android:textColorHint="#fff"
                             android:textSize="20sp"
@@ -118,16 +166,6 @@
                         app:boxBackgroundMode="outline"
                         app:boxStrokeColor="@color/colorAccent">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/service_provider_address2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/open_sans"
-                            android:hint="Address Line 2."
-                            android:inputType="text"
-                            android:textColorHint="#fff"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -189,6 +227,7 @@
                             android:textSize="20sp"
                             android:textStyle="bold" />
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
@@ -207,8 +246,25 @@
                             android:textColorHint="#fff"
                             android:textSize="20sp"
                             android:textStyle="bold" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
+                        <!--<TextView
+                            android:id="@+id/tv_pdf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select your document"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <Button
+                            android:id="@+id/selectBtnId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="select"
+                            android:layout_gravity="center_horizontal"/>-->
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/service_provider_submitdetails"
@@ -224,8 +280,11 @@
                         android:textSize="17sp" />
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

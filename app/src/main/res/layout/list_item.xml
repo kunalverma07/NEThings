@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="@color/white">
+    android:padding="10dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list_child"
         android:textSize="20sp"
-        android:paddingLeft="30dp"/>
+        android:paddingLeft="30dp"
+        android:textColor="@color/black"/>
 
 </LinearLayout>

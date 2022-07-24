@@ -1,4 +1,4 @@
-package android.example.house_assist;
+package com.nething;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Activity_LogInServiceProvider extends AppCompatActivity {
+public class ActivityLogInServiceProvider extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView new_User;
@@ -36,7 +36,7 @@ public class Activity_LogInServiceProvider extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__log_in_service_provider);
+        setContentView(R.layout.activity_log_in_service_provider);
         //Intialize
         new_User = findViewById(R.id.login_serviceprovider_register);
         toolbar = findViewById(R.id.sp_activity_login_toolbar);
@@ -44,7 +44,7 @@ public class Activity_LogInServiceProvider extends AppCompatActivity {
         login_serviceprovider_password = findViewById(R.id.login_serviceprovider_password);
         serviceprovider_login = findViewById(R.id.login_serviceprovider_login);
         forgetpass = findViewById(R.id.login_serviceprovider_forget_password);
-        progressDialog = new ProgressDialog(Activity_LogInServiceProvider.this);
+        progressDialog = new ProgressDialog(ActivityLogInServiceProvider.this);
         mAuth = FirebaseAuth.getInstance();
         //Toolbar
         setSupportActionBar(toolbar);
@@ -54,13 +54,7 @@ public class Activity_LogInServiceProvider extends AppCompatActivity {
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
         //Events
-        new_User.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Activity_LogInServiceProvider.this,Activity_RegisterServiceProvider.class));
-
-            }
-        });
+        new_User.setOnClickListener(v -> startActivity(new Intent(ActivityLogInServiceProvider.this, ActivityRegisterServiceProvider.class)));
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
         serviceprovider_login.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +77,7 @@ public class Activity_LogInServiceProvider extends AppCompatActivity {
                     mAuth.sendPasswordResetEmail(login_serviceprovider_email.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(Activity_LogInServiceProvider.this,"Password Resend Link send to email.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActivityLogInServiceProvider.this,"Password Resend Link send to email.",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -93,7 +87,6 @@ public class Activity_LogInServiceProvider extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -109,22 +102,17 @@ public class Activity_LogInServiceProvider extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             progressBarUnset();
-                            SharedPreferences sharedPreferences = getSharedPreferences("UID", Context.MODE_PRIVATE);
-                            sharedPreferences.edit().putString("email",email).apply();
-                            sharedPreferences.edit().putString("flag","service").apply();
-                            sharedPreferences.edit().putString("location","ok").apply();
-                            startActivity(new Intent(Activity_LogInServiceProvider.this,MainActivity.class));
+                            if(email.equals("admin@admin.com")){
+                                startActivity(new Intent(ActivityLogInServiceProvider.this, Admin.class));
+                            } else {
+                                startActivity(new Intent(ActivityLogInServiceProvider.this,HomeActivity.class));
+                            }
                         } else {
-                            // If sign in fails, display a message to the user.
                             progressBarUnset();
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-
-                            Toast.makeText(Activity_LogInServiceProvider.this, "Authentication failed.",
+                            Toast.makeText(ActivityLogInServiceProvider.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
-
-                        // ...
                     }
                 });
     }

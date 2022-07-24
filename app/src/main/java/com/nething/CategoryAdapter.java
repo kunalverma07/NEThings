@@ -52,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.holder
     class holder extends RecyclerView.ViewHolder{
 
         ImageView imageview;
-        TextView textview;
+        TextView textview,service_type;
 
         public holder(@NonNull View itemView) {
             super(itemView);
