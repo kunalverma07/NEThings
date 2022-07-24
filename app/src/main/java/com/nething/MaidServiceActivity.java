@@ -28,7 +28,6 @@ public class MaidServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maidservice);
 
         location = getIntent().getStringExtra("location");
-
         bg = findViewById(R.id.no_content); //
 
         recyclerView = findViewById(R.id.maidserviceId);

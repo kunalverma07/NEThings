@@ -53,7 +53,7 @@ public class MechanicActivity extends AppCompatActivity {
                     if (task.getResult().isEmpty()){
                         bg.setVisibility(View.VISIBLE);
                     } else {
-                        bg.setVisibility(View.GONE);
+                        bg.setVisibility(View.INVISIBLE);
                     }
                 });
 
