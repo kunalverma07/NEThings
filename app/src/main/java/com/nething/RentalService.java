@@ -12,11 +12,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class
-Rentalservice extends AppCompatActivity {
+RentalService extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<ServiceProviders> userArrayList;
-    myAdapterServiceProvider myAdapterServiceProvider;
+    MyAdapterServiceProvider myAdapterServiceProvider;
     FirebaseFirestore db;
 
     @Override
@@ -30,7 +30,7 @@ Rentalservice extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         userArrayList = new ArrayList<>();
-        myAdapterServiceProvider = new myAdapterServiceProvider(this, userArrayList);
+        myAdapterServiceProvider = new MyAdapterServiceProvider(this, userArrayList);
 
         recyclerView.setAdapter(myAdapterServiceProvider);
         EventChangeListener();

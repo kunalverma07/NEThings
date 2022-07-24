@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
+    android:id="@+id/cv_service_provider"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -52,14 +53,6 @@
                 android:hint="Specialisation"
                 android:padding="2dp" />
 
-            <TextView
-                android:id="@+id/tv_userprofilerating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="4dp"
-                android:hint="Rating"
-                android:padding="2dp" />
 
         </LinearLayout>
 

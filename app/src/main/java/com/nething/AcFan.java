@@ -1,20 +1,15 @@
 package com.nething;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -23,13 +18,20 @@ public class AcFan extends AppCompatActivity {
     private static final String TAG = "Acfan";
     RecyclerView recyclerView;
     ArrayList<ServiceProviders> userArrayList;
-    myAdapterServiceProvider myAdapterServiceProvider;
+    MyAdapterServiceProvider myAdapterServiceProvider;
     FirebaseFirestore db;
+    ImageView bg; //
+    String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ac_fan);
+
+        location = getIntent().getStringExtra("location");
+
+        bg = findViewById(R.id.no_content); //
+
 
         recyclerView = findViewById(R.id.acFanId);
         recyclerView.setHasFixedSize(true);
@@ -37,14 +39,28 @@ public class AcFan extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         userArrayList = new ArrayList<>();
-        myAdapterServiceProvider = new myAdapterServiceProvider(this, userArrayList);
+        myAdapterServiceProvider = new MyAdapterServiceProvider(this, userArrayList);
 
         recyclerView.setAdapter(myAdapterServiceProvider);
         EventChangeListener();
+        checkDocument(); //
+
+    }
+    private void checkDocument() { //
+
+        db.collection("Acfan").whereEqualTo("district", location).get() //plumber  //change xml
+                .addOnCompleteListener(task -> {
+                    if (task.getResult().isEmpty()){
+                        bg.setVisibility(View.VISIBLE);
+                    } else {
+                        bg.setVisibility(View.GONE);
+                    }
+                });
+
     }
 
     private void EventChangeListener() {
-        db.collection("Acfan")
+        db.collection("Acfan").whereEqualTo("district", location)
                 .addSnapshotListener((value, error) -> {
 
                     for (DocumentChange dc : value.getDocumentChanges()){
